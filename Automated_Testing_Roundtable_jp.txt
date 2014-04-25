@@ -1,6 +1,6 @@
 These are some notes from the Game Developers Conference 2011 roundtable session entitled "Automated Testing Roundtable: Proper Care and Feeding of Your Robot Armies".
 #これは、GDC2011で行われたラウンドテーブル「Automated Testing Roundtable: Proper Care and Feeding of Your Robot Armies」の議事録です。
-#（タイトルも無理やり訳すと・・・「テスト自動化ラウンドテーブル：あなたのロボット兵隊への適切なケアと餌」）
+#（タイトルも無理やり訳すと・・・「テスト自動化ラウンドテーブル：あなたのロボット兵にふさわしい手入れと餌付け」）
  
  
  
@@ -10,19 +10,20 @@ These are some notes from the Game Developers Conference 2011 roundtable session
  
  
 These notes are my interpretations of my notes combined with my admittedly flawed and probably biased memory.  If you have corrections, clarifications, other feedback, please feel free to e-mail the account "leander" at the domain "1stplayble.com" (or reply to the mailing list posts).
-#このノートには不明確な部分や著者のあいまいな記憶が混ざっている部分があります。もし正確な解釈やフィードバックがあるなら著者にメールをするか、メーリングリストにポストして下さい。
+#このノートには不明確な部分や著者のあいまいで偏った記憶が混ざっています。訂正、補足やフィードバックがあれば、気軽にメールしてください（もしくは、メーリングリストにポストして下さい。）
  
  
 Generally I'm going to speak with an imperative voice for brevity -- these are, however, not necessarily my opinions or the opinions of my employer; they represent a simplified version of what was discussed at the time.  Any and all omissions and errors are solely my own.
-#通常、簡潔な発言を義務付けています、が、～～～？？？。省略や失敗がある部分は私の～～です。
+#私は、普段から簡潔になるよう命令口調で話すようにしています。だからというわけでもないが、書かれている内容は、必ずしも私や会社による意見というわけではない。このディスカッションの明瞭な報告書もあげられると思いますが、本レポートの記載漏れや間違いは、すべて私だけの責任です。
+
  
  
 These are mostly in the same order that they were discussed, but there is some reorganization to clump related topics together.
-#議論されたのと同じ順に書いていますが、一部関連するトピックをまとめて再編集しています。
+#議論された順で書いていますが、一部関連するトピックは、まとまるように再編集しています。
  
  
 Finally, all of these comments lack attribution; since I feel I cannot be 100% accurate in attribution, I'd prefer to avoid the issue entirely.  If you contributed something and would like a note to that effect, drop me a line.
-#最後に、全てのコメントの発言者？（attribution）は書いていません。理由は100%正確に書くことができないため、全く無い方が良いと思ったからです。その後の文？？？、もし貢献してくれるならその点を心にとめて、ご一報下さい？
+#最後に、全てのコメントに発言者は書いていません。理由は100%正確に書くことはできないなら、全く無い方が良いと思ったからです。もし発言者を洗い出すのに協力してくれるのであれば、ご一報下さい
  
  
 And a big _thank you_ to everyone who contributed to the sessions!
@@ -31,12 +32,12 @@ And a big _thank you_ to everyone who contributed to the sessions!
  
  
 == Day 1 (Wednesday) ==
-#1日目
+#1日目(水曜日)
  
  
  
 The suggested topic of day 1 (Wednesday) was specific tests: what proved useful, and why.
-#1日目のトピックはテストについて具体的に：何が有効でその理由は？
+#1日目のトピックは特化型テスト：何が有効と証明されていて、それはなぜか
  
  
 Attendees were mostly programmers, although we did have a handful of QA and production folks as well.
@@ -50,7 +51,7 @@ Attendees were mostly programmers, although we did have a handful of QA and prod
  
  
 We opened with a discussion of what were the simplest tests that had the greatest returns/usefulness.
-#まず、最も効果が高くて実用性のある最もシンプルなテストについての議論から始めようと思います。
+#まず、とても効果が高くて実用性のあるような最もシンプルなテストの議論から始めよう。
  
  
 * Prefer basic functional tests to unit tests when starting to test an existing project.
@@ -59,65 +60,68 @@ We opened with a discussion of what were the simplest tests that had the greates
 * Parse existing TTY output, or add some more output to an existing TTY logging system, to quickly bootstrap initial tests.
 * Start with "does the game load?", and "does each level load?" smoke tests.
 * A visual scripting system is a great place to have small tests.
-#*既存のプロジェクトのテストを始める場合は、ユニットテストよりも基本的な機能テストを好む
-#*明確な「ホットスポット」を見つける。プロジェクト特有の複雑な部分やありそうな部分に注目する
-#*既存のシステムを活用する：ゲームプレイの記録と再生ができ、追加のメトリクス情報を生成する。
-#*TTY（標準出力）出力をパース、もしくは既存のTTYログシステムにさらに出力を追加して、すぐに最初のテストをブートストラップ（今あるものだけで何とか）します。
-#*「ゲームがロードされているか？」「それぞれのレベルがロードされているか？」というスモークテストから始める。
-#*視覚的なスクリプトシステムは、小さなテストを行うための素晴らしい環境です。
+#*既存のプロジェクトに対してテストを始める場合は、ユニットテストよりも基本的な機能テストがふさわしい
+#*あなたの実際のプロジェクトにおける複雑/重要な場所における特別の「ホットスポット」を見つけよう。
+#*既に存在しているシステムは活用する：ゲームプレイの記録と再生ができているところに、追加のメトリクス情報を盛り込む。
+#*TTY出力（標準出力）をパース、もしくは既存のTTYログシステムにさらに出力を追加して、速やかに最初のテストを立ち上げよう。
+#*スモークテスト「ゲームがロードされるか？」「各レベルがロードされるか？」から始める。
+#*ビジュアルスクリプトシステムは、小さなテストを行うための素晴らしい環境だ。
 #http://forum.unity3d.com/threads/54580-Visual-Scripting-System
 #http://www.extremetech.com/article2/0,2845,1152028,00.asp
  
  
 There was some concern about accumulated technical debt as it relates to maintaining the testing infrastructure.  Keep things simple to start to help defer this.
-#テストインフラを整える事と関連して、累積された技術的な負債があると思います。物事をシンプルにして、これらの問題は先送りにして始めましょう。
+#テストインフラを整える事と関連して、今まで蓄積してきた技術的負債を考えなくてはなりません。シンプルに始めることで、これらの問題を先送りしよう。
  
  
 Simple pass/fail reporting is sufficient for basic tests.  [More sophisticated reporting was covered in later discussions/days.]
-#単純な通過/失敗レポートは基本テストとして充分です。（より精錬されたレポーティングについては後日の議論でカバーされています）
+#単純な通過/失敗レポートは基本テストとして充分です。（より精錬されたレポートについては後日の議論でカバーします）
  
  
 Some studios have the ability to run tests before committing changes.  "Local versions" of tests are beneficial even if they have to be stripped down somewhat relative to their more full-featured counterparts.
-#変更をコミットする前にテストを実行する（能力のある）スタジオもあります。"ローカル版"テストは、よりフル機能に対応したものと比べて幾分取り除かれてるとしても有益です。
+#変更をコミットする前にテストを実行する（能力のある）スタジオもあります。"ローカル版"でのテストは、フル機能の環境でのテストと比べれば除かれてる要素があるとしても有益です。
  
  
 Tests are not all-or-nothing; it's wise to have a mixture of immediate (before commit and post-commit) and deferred testing (e.g. scheduled daily).  Defer anything that slows down build iteration time significantly.
-#テストは、オールオアナッシングではない。すぐにやらなくてはならない（コミット前、かコミット後）ものと、猶予のあるテスト（デイリーでスケジュール化されたもののように）両方ある。ビルドイテレーション時間を大きく遅らせるようなものは後でやるべきだ。
+#テストは、オールオアナッシングではない。（コミット前やコミット後に）すぐにやらなくてはならないものと、（デイリーでスケジュール化されたもののように）猶予のあるテストの両方がある。ビルドイテレーションの間隔を大きく遅らせるようなものは後でやるべきだ。
  
  
 It may be useful to allow "expected to fail" tests in some cases.
-#「失敗を期待する」テストはいくつかのケースで有用だろう。
+#いくつかのケースで「失敗が期待される」ことが許容されるテストも有用だろう。
  
  
 The choice of viable "next targets" for testing is at least partly the responsibility of project leads and producers.
-#テストのための「次のターゲット」をどう選択していくかの計画実行には、少なくとも部分的にはプロジェクトリーダーやプロデューサーが責任を持つ。
+#テストに関する実行可能な「次のターゲット」の選択には、少なくとも部分的にはプロジェクトリーダーやプロデューサーが責任を持つ。
  
  
 The setup and layout of your version control system is important; it may dictate what's easy and hard to automate.
-#バージョン管理システムのセットアップやレイアウトは重要だ。それは自動化が容易か難しくなるかに影響する。
+#バージョン管理システムのセットアップや構成は重要だ。それは自動化が容易か難しくなるかに影響する。
  
  
 How do people drive tests?  Many use a continuous integration build server or test suite management system.  At least the following were mentioned on the first day (these are CI / continuous build unless otherwise noted):
-#どうやってテストを運用していますか？多くの人はCI（continuous integration）ビルドサーバーか、テストスイート管理システムを使用しているでしょう。少なくとも1日目には次の内容を話し合います。（CI/継続ビルドについて）
- 
+#みなさん、どうやってテストを運用していますか？多くの人はCI（continuous integration）ビルドサーバーか、テストスイート管理システムを使用しているでしょう。初日は、少なくとも下記の（特に断らない限りはCI/継続ビルド）は話し合います。
  
 * TeamCity 
 * Pulse Continuous Integration Server
 #http://zutubi.com/products/pulse/ , http://zutubi.com/sales/
 * Hudson [forked to "Jenkins"]
+#* Hudson [と、その派生の "Jenkins"]
 * CruiseControl.NET
 * Buildbot
 * Bitten (automated metrics collection for Trac)
+#* Bitten (trac用の自動メトリック収集)
 #http://bitten.edgewall.org
 * Cucumber (behavior-driven testing)
+#* Cucumber (ビヘイビア駆動テスト)
 #http://cukes.info/
 * BugSplat (drop-in crash tracking)
+#* BugSplat (組み込み型クラッシュトラッキング)
 #http://www.bugsplatsoftware.com/
 #BugSplatはあなた自身の製品のエンドユーザーがクラッシュを追跡するためのツールの包括的なセットを提供しています。 BugSplatを使用すると、簡単には、ユーザーがクラッシュを監視し、ライブラリを統合して取得します。クラッシュのイベントでは、ユーザーは、オンラインサービスへのクラッシュ情報をアップロードするオプションが与えられます。あなたのエンジニアリングチームはBugSplatのWebサイトにあるすべてのクラッシュ情報を閲覧することができます象徴呼び出し、実際の問題を特定するために使用できるスタックを含む貴重な情報へのアクセスを持っています。オンラインクラッシュ報告はあなたの傾向を分析し、最も一般的なユーザーがクラッシュを分離するツールの広いセットを提供します。(Featuresを機械翻訳)
  
  
 It's valuable to have a "command line parser" built into the game; your CI build can execute e.g. "rungame.exe alltests" as a post-build step.
-#ゲームに「コマンドラインパーサー」を組み込む事は役に立ちます：例えばCIビルドが「rungame.exe alltests」のようにビルド後のステップを実行する事ができます。
+#ゲームに「コマンドラインパーサー」を組み込む事には価値があります：ビルド後のステップで、CIビルドが「rungame.exe alltests」等が実行できます。
  
  
  
