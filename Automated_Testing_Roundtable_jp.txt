@@ -136,17 +136,17 @@ Make good use input recording / driving / playback: a "monkey" that randomly pre
  
  
 If a random-walk bot gets "stuck", use heat map data from prior game runs to teleport it back to a frequently traveled location, possibly report the "sticky" place, and continue testing.
-#もしランダムに歩かせるボットが動きがとれなくなったら、前のゲーム実行のヒートマップデータを使って頻繁に移動している場所にテレポートして戻す、その時「厄介な」場所としてレポートを残すかもしれない、そしてテストを継続する。
+#もしランダムに歩かせるボットの身動きがとれなくなったら、以前のゲーム結果のヒートマップデータを参照して頻繁に移動している場所にテレポートして戻す、できれば「厄介な」場所としてレポートを残そう、それからテストを継続する。
  
  
 The use of automated UI/menu traversal varies widely per team and per product:
-#UIとメニューの横断テストの自動化はチーム毎かプロダクト毎に異なる
+#UIとメニューの遷移テストの自動化はチーム毎、プロダクト毎に非常に異なっている
  
  
 * Some teams record input streams from tester play throughs, then play these back in automated tests, checking for successful completion or lack of errors/crashes.
-#テスターのプレイの入力ストリームをそのまま記録するチームもある、そしてそれを自動テストで再生する、成功して完走するか失敗/クラッシュするかをチェックする。
+#テスターのプレイの入力ストリームをそのまま記録するチームもある。それらは自動テストで再生される。成功して完走するか失敗/クラッシュするかがチェックされる。
 ** On some games, these input streams go "stale" frequently due to game or UI changes, and there's some overhead to re-recording.  (Some people were of the opinion that the overhead was too high to warrant continuing this type of test, some found it simple, depending on the product and tech.)
-##ゲームやUIの頻繁な変更に伴いこれらの入力ストリームが「古く」なる場合があります、そして再レコーディングするオーバーヘッドもあります。（このタイプのテストでは整合性を保つためのオーバーヘッドが大きすぎるという人も居ます。簡単に言えば、プロダクトや技術者に依存します。）
+##ゲームやUIの変更に伴いこれらの入力ストリームが「古く」なり、再レコーディングするオーバーヘッドが生じる場合があります。（このタイプのテストは整合性を保つためのオーバーヘッドが大きすぎるという人もいれば簡単だという人もいます。プロダクトや使っている技術に依存します。）
 ** On other games, the UI attains a stability vs. recorded input streams and the need to re-record is infrequent.
 ##UIが安定に達するのと、入力ストリームの記録をとり再記録がめったに起きなくなるのを競わせたゲームもあります。
 * Some teams drive UI traversal at a different level using an API (sometimes provided by a framework or language feature).
@@ -158,7 +158,7 @@ There is at least one team having success with both recorded input streams _and_
  
  
 One individual suggested that fuzz testing is his primary tool, rather than recordings or scripts: he fuzzes inputs, network packets, files -- anything he can -- during parsing or loading, to simulate faulty hardware or software bugs.  The engine that his team is using has fallback resources for almost everything that cannot load, and it has been a really quick way to find bugs in both normal and error handling code paths.  Having an engine stable enough to deal with some hardware defects is helpful on a big title that might reach millions of users (and therefore potentially thousands of defective units).
-#fuzz testingを主要ツールとして使っていて個人的に推薦するという人が居た。入力の記録やスクリプトよりも。ネットワークパケットやファイル（とかその他可能なもの）からファズデータをパース・ロードし、ハードウェアの欠陥やソフトウェアバグをシミュレートする。彼のチームのエンジンはほとんど全てのものに対してロードができなかった場合の代替リソースがある、そしてその方法は対象のコードパスに対する正常・異常を見つけるのが本当に早い。（PCゲームのこと？）いくつものハードウェア障害に対応できる安定したエンジンが何百万ものユーザを持つビッグタイトルを支えます（おそらく何千もの不良ユニットを持っている可能性がある）。
+#入力の記録やスクリプトよりも、fuzz testingを主要ツールとして使っていて個人的に推薦するという人が居た。入力、ネットワークパケットやファイル（とかその他可能なもの）について、パースやロードする際にファズ(エラー入りの命令)と差し替え、欠陥のあるハードウェアやソフトウェアバグをシミュレートする。彼のチームのエンジンは、ほとんど全てのものに対してロードができなかった場合の代替リソースがある、この方法は正常系とエラー処理系の両方のコード分岐でバグを見つけるのが本当に早い。いくつものハードウェア障害に対応できる安定したエンジンが何百万ものユーザを持つビッグタイトルを支えます（おそらく何千もの不良ユニットを持っている可能性がある）。
 #http://www.ibm.com/developerworks/jp/java/library/j-fuzztest.html
 #http://www.sophia-it.com/content/fuzz+testing
 #セーブデータが壊れている場合とかチートとか、純粋に機器の故障、パケット遅延、改ざん対策ができるのかな。（感想）
@@ -171,38 +171,38 @@ One individual suggested that fuzz testing is his primary tool, rather than reco
  
  
 Record a history of actions in the content tools; package this with bug or crash reports.
-#内蔵のツールでの行動履歴を記録します：バグやクラッシュレポートと一緒に梱包します。
+#内蔵ツールで行動履歴を記録する：バグやクラッシュレポートと統合する。
  
  
 Graphs help tremendously with understanding reported information.  Correlate graph entries with individual revisions and focus on trends / differences over time.
-#グラフは、報告された情報を理解するのに大いに役立ちます。相関グラフにより個々のリビジョンと時間経過によるトレンド/差異にフォーカスしたエントリーを見る事ができます。
+#グラフは、報告された情報を理解するのに大いに役立ちます。個々のリビジョンでグラフの項目を相関させることで、時間経過に伴うトレンド/差異に焦点を当てることができる。
  
  
 Long soak tests (one individual mentioned 1 day to 2 weeks) can use graphs to show leaks or other issues.
-#Long soak tests：浸せき試験（1日から2週間って言っていた）を行えばリークや他の問題をグラフ化する事ができるよ。
+#長い soak tests：浸せき試験（1日から2週間って言っていた）を行えばリークや他の問題をグラフ化する事ができるよ。
 #http://www.c-able.ne.jp/~tips-com/00topics/01dictionary/0111sa/　（信頼性テスト）
  
  
 For smoke and soak tests, record memory usage, FPS, GPU stats (e.g. poly counts), and gameplay events or balance-related statistics.
-#スモークテストやソークテストのために、メモリー使用、FPS、GPUステート（ポリゴン数など）、ゲームプレイに関するイベントやバランス調整に関する統計情報等を記録する。
+#スモークテストやソークテストのために、メモリー使用量、FPS、GPUステート（ポリゴン数など）、ゲームイベントやバランス調整に関する統計情報等を記録する。
  
  
 Attach stack traces to crash/hang reports; possibly parse these and bucket or assign them automatically based on e.g. P4 blame.  "Hash" the stack trace to help with bucketing.  [See also "Debugging in the (Very) Large" paper.]
-#クラッシュ/ハングレポートにスタックとレースを添付する：それらレポートかまるまる全部を、例えばP4 blameで（Perforceの機能？）、自動的にパースするかアサインするという手もある。スタックトレースに「ハッシュ」を付けるのもデータを汲むのに役立つ。["Debugging in the (Very) Large"という論文参照]
+#クラッシュ/ハングレポートにスタックトレースを添付しよう：それらレポートをパースしたり、P4 blameの様なものを元にして、自動的にアサインしよう。スタックトレースに「ハッシュ」を付けるのもデータをためる際にはに役立つ。["Debugging in the (Very) Large"という論文参照]
 #"Debugging in the (Very) Large"→http://research.microsoft.com/apps/pubs/default.aspx?id=81176
  
  
 A few people tried Windows Error Reporting but expressed that the turnaround time for receiving info was too high for their liking; they preferred custom solutions.
-#Windowsのエラーレポートを試したが情報を得るまでのターンアラウンドタイムが期待より長すぎた；カスタムソリューションを推奨した。
+#Windowsのエラーレポートを試した者がいたが、情報を得るまでのターンアラウンドタイムが期待より長すぎた；カスタムソリューションを推奨した。
  
  
 The commercial product BugSplat was mentioned as a drop-in crash reporting solution.
-#商用製品の「BugSplat」はドロップインのクラッシュレポーティングソリューションとして言及された。
+#商用の「BugSplat」はドロップインのクラッシュレポーティングソリューションとして言及された。
 #http://www.bugsplatsoftware.com/
  
  
 Expose what you already have!  Leverage existing systems to add more info to reports.
-#すでに持っているものをさらしてみよう！既存のシステムにテコ入れして、レポートのためにもっと情報を追加しよう！
+#すでに持っているものを掘り起こそう！既存のシステムにテコ入れして、レポートにもっと情報を追加しよう！
  
  
  
@@ -212,11 +212,11 @@ Expose what you already have!  Leverage existing systems to add more info to rep
  
  
 Environment snapshots are sometimes useful to maintain one or more consistent OS and software stacks for testing.  Some people use VMWare for this.
-#環境のスナップショットはテストのための一貫性のあるOSやソフトウェアスタックを構築したり維持するのに有用です。VMWareを使ってこれを実現している人も居ます。
+#環境のスナップショットはテストのための一貫性のあるOSやソフトウェアスタックを構築したり維持するのに有用です。何人かは、これにVMWareを使っています。
  
  
 Special environments such as Valgrind, Bounds Checker, Insure++, or the like may be useful places to run a supplemental scheduled test.
-#Valgrind,  Bounds Checker, Insure++ といったツール専用の環境はスケジューリングされたテストに追加して走らせるのに良い場所です。
+#Valgrind,  Bounds Checker, Insure++ といった専用の環境は、補助的なスケジューリングテストを走らせるのに良い場所です。
 #Valgrind http://ja.wikipedia.org/wiki/Valgrind
 #Bounds Checker http://www.microfocus.co.jp/products/devpartner/devpartner_fm/devpartnervisualc/
 #Insure++ http://www.techmatrix.co.jp/quality/insure/index.html
@@ -237,19 +237,19 @@ Some people try to get full unit test coverage, but the general consensus seemed
  
  
 Still, if a unit test fits, it's usually fast to create and faster to run than a "corresponding" functional test: prefer unit tests when all else is equal.
-#ユニットテストがフィットしているとしても、「よく似た」機能テストを作成して走らせた方が往々にして早い：他の全てが同じようにユニットテストが好ましいとしても
+#ユニットテストがフィットしているとしても、「よく似た」機能テストを作成して走らせた方が往々にして早い：他の全てが同じならユニットテストを好んンでください
  
  
 Using data reported from an evolving build for tuning can cause serious problems as things change.  [There were some excellent presentations on this at the GDC 2011 AI Summit, including "AI Pr0n: Maximum Exposure of Your Debug Info!" by Michael Dawe (Big Huge Games/38 Studios), Rez Graham (Electronic Arts - Sims Division), and Brian Schwab (Blizzard Entertainment).]
-#チューニングのために進化（改造）されたビルドからデータを使用する場合、何かが変わった時に深刻な問題が発生する。[このGDC2011のAI Summit内"AI Pr0n: Maximum Exposure of Your Debug Info!" by Michael Dawe(Big Huge Games/38 Studios), Rez Graham (Electronic Arts - Sims Division), and Brian Schwab (Blizzard Entertainment) でこの事に関するすばらしい発表があった]
+#チューニングのために進化（改造）されたビルドの結果によるデータを使用する場合、何かが変わった時に深刻な問題が発生する。[このGDC2011のAI Summit内"AI Pr0n: Maximum Exposure of Your Debug Info!" by Michael Dawe(Big Huge Games/38 Studios), Rez Graham (Electronic Arts - Sims Division), and Brian Schwab (Blizzard Entertainment) でこの事に関するすばらしい発表があった]
  
  
 Avoid beta, experimental, or immature tools and components [in build and test automation, perhaps also in general] if possible.
-#可能であれば、ベータ、実験、未熟なツールとコンポーネントは[ビルドや自動テスト内で使うのを、おそらく一般使用も]避けるべきだ。
+#可能であれば、ベータ、実験、未熟なツールやコンポーネントは[ビルドや自動テスト内で使うのを、おそらく一般使用も]避けるべきだ。
  
  
 Mock objects are often more trouble to maintain than they're worth.  (Some people had success here, others find it a consistent problem.)
-#モックはそれらの価値から得られるものよりも大体の場合維持のトラブルがある。（ここで数人は成功したと言ったが、それ以外は一貫性の問題を挙げた）
+#モックはそれらの価値から得られるものよりも大体の場合維持の問題がある。（数人は成功したと言ったが、ほとんどは一貫性の問題を挙げた）
  
  
 "Process and people make all the difference."
@@ -272,7 +272,7 @@ Make sure people are actually running the build themselves!  All too often there
  
  
 Simulate a competent player or players to test in-game economy to help reveal balance-breaking changes.
-#優秀なプレイヤーをシミュレートして、ゲーム内経済においてバランス崩壊する変更が露呈するのをテストします。
+#ゲーム内経済でのバランスが崩壊する変更が露呈するのをテストするには優秀なプレイヤーをシミュレートしてください。
  
  
  
@@ -282,15 +282,15 @@ Simulate a competent player or players to test in-game economy to help reveal ba
  
  
 Mixed results here.  Most people could not recommend it due to signal-to-noise ratio issues.
-#意見が分かれました。検出：ノイズの比率の問題でほとんどの人はそれ（静的解析）をお勧めしませんでした。
+#意見が分かれました。検出/ノイズの比率の問題のため、ほとんどの人はそれ（静的解析）をお勧めしませんでした。
  
  
 "Definitely" use some sort of pre-runtime checking for non-compiled languages (such as Python scripts).
-#「当然」、（Pythonスクリプトなどの）非コンパイル言語に対するランタイムチェック前のある程度のソートは使っている。
+#「当然」ですが（Pythonスクリプトなどの）非コンパイル言語に対する実行前のいくらかのチェックは使ってください。
  
  
 Do track local conventions and have an existing static code analysis tool or a custom tool detect violations.  Use "smart comments" to bypass these checks if you know what you're doing.
-#昔ながらのやりかたでの追跡か既存の静的解析ツールかカスタムツールどれでも良いので違反を検知しましょう。あなたがどんな事をしているか（コードを書いているか）を知るために、「スマートコメント」を使ってこれらのチェックをバイパスします。
+#昔ながらのやりかたでの追跡か既存の静的解析ツールかカスタムツールどれでも良いので違反を検知しましょう。あなたがどんな事をしているか（コードを書いているか）を知るために、「スマートコメント」を使ってこれらのチェックの手間を省きます。
  
  
 Static code analysis has proved very useful for some people to fix "porting to 64-bit" issues.
@@ -298,7 +298,7 @@ Static code analysis has proved very useful for some people to fix "porting to 6
  
  
 It's easier to do static code analysis if you start with it.
-#それから始める場合は、静的解析を使うと簡単です。（64bit移植のこと？）
+#新規プロジェクトでは、静的解析を使うのは簡単です。
  
  
 Reporting only differences between runs helps with the signal-to-noise ratio if you're working with a legacy code base.
@@ -306,17 +306,17 @@ Reporting only differences between runs helps with the signal-to-noise ratio if 
  
  
 Turn compiler warnings up as far as possible, and "Treat Warnings As Errors", if at all possible.
-#コンパイラの警告はできる限り大きくしておくべきです、そして「警告をエラーとして扱う」、できる限り。
+#コンパイラの警告はできる限り大きくしておくべきです、そして、できる限り「警告をエラーとして扱う」。
  
  
  
 == Day 2 (Thursday) ==
-#2日目
+#2日目(木曜日)
  
  
  
 The suggested topic of day 2 (Thursday) was infrastructure: who deploys and maintains automation, and which tools and practices have helped.
-#2日目のトピックはインフラです：誰がデプロイや自動化を保持しますか、そしてどんなツールやプラクティスを使っていますか。
+#2日目(木曜日)のトピックはインフラです：誰がデプロイして、自動化を保持しますか、そしてどんなツールやプラクティスを使っていますか。
  
  
 [For Thursday, we switched to a "gather general questions, then attempt to answer them" model.]
@@ -337,11 +337,11 @@ The suggested topic of day 2 (Thursday) was infrastructure: who deploys and main
 * Presentation (of gathered information, test results, etc)
 * Distributed builds
 #*内製かサードパーティーのソリューションか
-#*テレメトリー？
+#*遠隔測定法
 #*インテグレーション[どこでどうやって、そしてメンテナンス]
-#*ブランチとCI（継続的インテグレーション）の戦略；特にブランチの扱いについて
+#*ブランチとCI（継続的インテグレーション）の戦略；トピックブランチについて
 #*応答（所要）時間
-#*提供方法（集めた情報、テスト結果、など）
+#*（集めた情報、テスト結果、など）の見せ方
 #*分散ビルド
  
  
@@ -356,7 +356,7 @@ Attendees primarily (~75% or more) were using in-house custom build and test sol
  
  
 Time to integrate and maintain automation is key: often the automation itself lacks testing.  Some teams have an assigned automation tester.  Some cannot afford this.
-#統合と自動化のメンテナンス時間がキーです：その自動化システム自体がテストされていない、という事はよくあります。自動化テスターが割り当てられたチームもある。買う余裕のないところもある。
+#自動化の統合とメンテナンスの時間がキーです：その自動化システム自体がテストされていない、という事はよくあります。自動化テスターが割り当てられたチームもある。雇う余裕のないところもある。
  
  
 The following 3rd party tools were mentioned:
@@ -367,7 +367,9 @@ The following 3rd party tools were mentioned:
 #Hudson→forked to Jenkins http://jenkins-ci.org/
 * TeamCity (builds)
 * JIRA (issue/project tracking) [someone mentioned integration with Hudson here]
+#JIRA(課題/プロジェクトトラッキング)[何人かは、Hudsonを統合しているそうです]
 * FishEye (VCS notification, visualization, and search)
+# FishEye (VCS通知、可視化、検索)
 #http://www.atlassian.com/software/fisheye/  10 users $10
  
  
@@ -382,7 +384,7 @@ E-mails are a common and easy way to report data.
  
  
 Log asserts and warnings, report those.
-#アサートや警告ログをレポートする
+#アサートや警告のログをとって報告する
  
  
 Graph memory stats.
@@ -390,7 +392,7 @@ Graph memory stats.
  
  
 When graphing anything, try to show a "current snapshot" and contrast with historical data.  Especially useful with memory.
-#なにかをグラフ化するときは、履歴のデータに対応した「現在のスナップショット」を見せるようにする。特にメモリ。
+#なにかをグラフ化するときは、「現在のスナップショット」を見せて過去のデータと対比させよう。特にメモリに有効。
  
  
 The following 3rd party tools were mentioned:
@@ -398,17 +400,21 @@ The following 3rd party tools were mentioned:
  
  
 * Confluence (info share)
+# Confluence (情報共有)
 #http://www.atlassian.com/software/confluence/  $10
 * SQL Server Reporting Services (analytics)
+#SQL サーバーレポートサービス（解析）
 #http://msdn.microsoft.com/ja-jp/library/ms159106.aspx
 * Callgrind [part of Valgrind] (call graph)
+# Callgrind [Valgrind の一部] (呼び出しグラフ)
 #http://valgrind.org/docs/manual/cl-manual.html
 * Tableau (analytics) [this was specifically called "expensive", but worth it if you could afford it]
-#http://www.tableausoftware.com/   日本サポート会社あり   http://www.tableausoftware.jp/  [高いと言われるけど、買う余裕があればそれだけの効果がある]
+# Tableau (分析) [高いと言われるけど、買う余裕があればそれだけの効果がある]
+#http://www.tableausoftware.com/   日本サポート会社あり   http://www.tableausoftware.jp/  
  
  
 Harvest some telemetry from each and every build (even individuals' builds) and also from a build run periodically (e.g. every 12 hours).  Separate the visualization for each.
-#ビルド毎にテレメトリーを収穫する、定期的（12時間毎など）にも実行する、そしてそれぞれについて見れるようにする。
+#ビルド毎に(個々にも)テレメトリーを収穫する、定期的（12時間毎など）にも実行する。そしてそれぞれについて見れるようにする。
  
  
 One team gathers data from a 5-minute game run under Callgrind.
@@ -416,7 +422,7 @@ One team gathers data from a 5-minute game run under Callgrind.
  
  
 Try "all possible combinations of weapons vs. zombie", report number of hits, damage, who won, etc.
-#「全ての可能な武器vsゾンビの組み合わせに対して」ヒット数、ダメージ、誰が勝つかを試すとか。
+#「全ての可能な武器vsゾンビの組み合わせに対して」ヒット数、ダメージ、誰が勝つかを試すとか報告させてみよう。
  
  
 Record all "achievements" acquired during testing.
@@ -424,7 +430,7 @@ Record all "achievements" acquired during testing.
  
  
 Record playtime (can "check on QA" this way, if so inclined).
-#プレイ時間を記録する（「QA側のチェック」はこの方法でできる、もし傾向があれば）
+#プレイ時間を記録する（「QA側のチェック」はこの方法でできる、もししたいなら）
  
  
 Tool telemetry is important:
@@ -434,9 +440,9 @@ Tool telemetry is important:
 * record actions and the time they took to complete
 #アクションと完了までにかかった時間を記録
 * keep track of data build times
-#ビルド時の追跡データを残す
+#データのビルド時間を残す
 * use a single simple global (e.g. SQL) database and (e.g. ASP) web service for collecting data
-#データを集めるために1つの簡単なグローバルデータベース（例：SQL）と（例ASPのような）webサービスを使う。
+#データを集めるために1つの簡単な（SQLのような）グローバルデータベースと（例ASPのような）webサービスを使う。
 * take screen shots
 #スクリーンショットを撮る
 * upload logs and screen shots when a crash occurs, or a bug report is issued; can place these in a test case management system
@@ -444,11 +450,11 @@ Tool telemetry is important:
  
  
 "Collection is easy.  Presentation is hard."  [paraphrased]
-#「収集は簡単、提示が難しい」[言い換え？]
+#「収集は簡単、提示が難しい」[言い換え]
  
  
 Reporting can be via unreliable networking: UDP or HTTP.  Statistically you still get what you need.
-#レポートは信頼できないネットワーク（UDP、HTTP）でもレポーティングできる。統計的に必要なものが得られる。
+#レポートは信頼できないネットワーク（UDP、HTTP）でも受け取れる。統計的に必要なものが得られる。
  
  
  
@@ -462,15 +468,15 @@ About 15% of attendees used unit tests.  Also about 15% of attendees used functi
  
  
 Some teams have difficulty getting info about new features to the people responsible for maintaining automation.
-#自動化の維持を任せる事ができる人々という新しい特徴の情報を得る事が難しいというチームも居る
+#自動化の維持の責任者が新しい機能の情報を入手するのが難しいというチームもある
  
  
 Automatically created test cases (e.g. input dumps) tend to "thrash" and produce false failures a lot.
-#（入力ダンプのように）自動でテストケースを作ると「打ちのめされる」、失敗をたくさん作ってしまう傾向がある。
+#（入力ダンプのように）自動でテストケースを作ると「打ちのめされ」て、失敗をたくさん作ってしまう傾向がある。
  
  
 Take screen shots.  These can be verified by a human quickly, or you can use pixel-by-pixel compare (breaks often, depending on product) or PerceptualDiff.  Bots should take screen shots as they traverse the game.
-#スクリーンショットを撮る。これは人によって素早く検証できるし、ピクセル毎の比較にも使える（よく失敗するし、プロダクトに依存するが）、もしくはPerceptualDiff。ボットはゲームを旋回する中でスクリーンショットを撮るべきだ。
+#スクリーンショットを撮る。これは人力で素早く検証できるし、ピクセル毎の比較にも使える（よく失敗するし、プロダクトに依存するが）、もしくはPerceptualDiffを使う。ボットはゲームを進める中でスクリーンショットを撮るべきだ。
 #PerceptualDiff  http://pdiff.sourceforge.net/
  
  
@@ -489,7 +495,7 @@ When do you add a test?  When the build breaks, or with each bug, or with new fe
  
  
 Some durations from a few folks' tests:
-#いくつかのテストの系統によって期間が分かれた？
+#いくつかのテストの系統によって期間が分かれた
  
  
 * Wii: 1 hour
@@ -497,7 +503,7 @@ Some durations from a few folks' tests:
  
  
 Smoke test should be quick.  Ideas:
-#スモークテストは早くできるべき。アイデア：
+#スモークテストは早くできるべき。アイデアとして：
  
  
 * start editor
@@ -506,24 +512,24 @@ Smoke test should be quick.  Ideas:
  
  
 Some people prefer to avoid tests that require sequential steps (so that early failures don't prevent the test from completing).  Others suggested this didn't matter as long as the test turnaround time is fast and the fixes are fast.
-#シーケンシャルなステップ（初期の失敗がテストの完了を阻止しない？）を必要とするテストはやりたくないと言う人も居た。
-#ターンアラウンドタイムは早く修正も早いので気にするほど長くはないと言う人も居た。
+#シーケンシャルなステップを必要とするテストを飛ばすと言う人も居た（初期の失敗はテストの完了を阻止しない）。
+#ターンアラウンドタイムが早いと修正も早いので気にするほどの長さではないと言う人も居た。
  
  
 Many teams do incremental data builds (caching results) and full code builds on their build server.  Once a day (or less often), they'd do a clean data and code build.
-#多くのチームはインクリメンタルデータビルド（結果をキャッシュ）とビルドサーバーでのフルコードビルドを行う。1日に1回（かもっと多く？少なく？）データとコアのビルドをクリーンにする。
+#多くのチームはインクリメンタルデータビルド（結果のキャッシュ）とビルドサーバーでのフルコードビルドを行う。1日に1回（もしくは、それほど頻繁ではないが）データとコードのビルドをまっさらな状態から行う。
  
  
 Code build times were generally quick, with most people reporting full code build times in minutes, but some reporting above 40 minutes or an hour, even distributed.
-#コードのビルド時間は一般的には早い、ほとんどの人はフルコードビルドは数分で終わると答えた、しかし40分や1時間と答えた人も居た、分散（ビルド）しているのに。
+#コードのビルド時間は一般的には早い、ほとんどの人はフルビルドは数分で終わると答えた、しかし40分や1時間と答えた人も居た、分散（ビルド）しているのに。
  
  
 Identify idle consoles (e.g. Xbox) and run a test suite opportunistically.
-#空いているコンソール（Xboxなど）を確認してテストスイートを日和見的に走らせる。
+#空いているコンソール（Xboxなど）を特定してテストスイートを勝手に走らせる。
  
  
 Dedicated automated test hardware is common.
-#自動テスト専用のハードウェアがあるは一般的です。
+#自動テスト用にハードウェアを確保するのは一般的です。
  
  
  
@@ -537,11 +543,11 @@ Present results once or twice a day.
  
  
 Prefer pushing data to users to having them seek it out.  But don't push too often.
-#結果は探させるよりユーザに提示しよう。けれどやりすぎは良くない。
+#結果はユーザに探させるより送りつけよう。けれどやりすぎは良くない。
  
  
 Allow users to voluntarily subscribe to other more frequent push sources (build successes, current stats, etc).
-#ユーザには自発的に他の人にもっと頻繁にソース（ビルドの成功、現在の状態など）をプッシュする事を賛成するのを許可しましょう
+#ユーザが頻繁なプッシュソース（ビルドの成功、現在の状態など）を自発的に入手する事は許しましょう
  
  
 Test or build failures are an exception: push these immediately to responsible parties.
@@ -553,24 +559,24 @@ Prefer to present data visually (vs. textually).
  
  
 Use simple visualizations, e.g. red and green dots, in an easily-findable overview.
-#シンプルなビジュアル化を使おう、例：赤と緑のドット、概要が簡単につかめるように。
+#概要が簡単につかめるようにシンプルなビジュアル化をしよう。例：赤と緑のドット。
  
  
 "Trial builds" via TeamCity or Perforce "shelving" functionality with full testing are well loved by those who have this ability.
-#TeamCityの「Trial builds」やPerforceの「shelving」機能とフルテストを合わせる事はこれらを使いこなせる人達に愛されている。
+#フルテストとあいまったTeamCityの「Trial builds」やPerforceの「shelving」機能は、これらを使いこなせる人達に愛されている。
  
  
 Report errors "per build phase".  [Separate various types of data build errors from each other and from code build errors or script compilation errors.]  Mail to appropriate groups based on this.
-#「ビルドフェイズ毎」のエラーレポート。[それぞれのビルドエラーをタイプ毎に分ける事ができ、コードのエラーかスクリプトのコンパイルエラーか等切り分けることができる]。結果に適した相手にメールを送る。
+#「ビルドフェイズ毎」にエラーをレポートしよう。[さまざまなデータビルドエラーや、コードのエラーおよびスクリプトのコンパイルエラーと切り分けよう]。結果に適した相手にメールを送ろう。
  
  
 Don't be afraid to write scripts (e.g. python) to parse build logs for specific errors of interest and "promote" them.
-#Pythonといったスクリプト言語を書くことを恐れてはいけない。ビルドログや特定のエラーに興味を持たせ、「宣伝」するために。
+#特定のエラーに興味を持たせ、「宣伝」するために、ビルドログをパースするのにPythonといったスクリプト言語を書くことを恐れてはいけない。
 #☆使って興味持ってもらって活用してもらうためにがんがん手を加えていけという事ですね。
  
  
 Keep final reports human-readable.  If possible, include a basic description of how to fix or a link to more details.
-#最後の（最新の）レポートはだれでも読めるようにしておこう。可能なら、基本的な修正方法の概要と詳細へのリンクを含める。
+#最終レポートは人間が読めるようにしておこう。可能なら、基本的な修正方法の概要と詳細へのリンクを含めよう。
  
  
 Methods for notification:
@@ -612,7 +618,7 @@ Simple but brutally effective: prevent commits if the build is failing.
  
 * SN-DBS (Sony platforms)
 #http://www.snsys.jp/products/SN-DBS.asp
-#SN-DBS は PlayStationR2、PSP? (PlayStationRPortable) 及び PlayStationR3 の開発者の皆様にこれより無償で、 Product Licensing System 無 しにご利用いただけます。 
+#SN-DBS は PlayStationR2、PSP (PlayStationRPortable) 及び PlayStationR3 の開発者の皆様にこれより無償で、 Product Licensing System 無 しにご利用いただけます。 
 * IncrediBuild
 #http://www.xoreax.co.jp/
  
@@ -626,7 +632,7 @@ Generally, people seem to prefer multicore-scalable tools to distributed tools. 
  
  
 Build system: get it more cores, and one or more solid state drives.  These seem to matter more than most other things these days.
-#ビルドシステム：より多くのコアでより信頼できる1つ以上のドライブを使用するべき。これらは最近、他のほとんどのものよりも重要であるように思われる。
+#ビルドシステム：より多くのコアを使い、1つ以上のSSDドライブを使用するべき。これらは最近、他のほとんどのものよりも重要であるように思われる。
  
  
 Distribute your unit test.  (One example: reduction from 6 minutes to 40 seconds.)
@@ -640,12 +646,12 @@ What VCSes are people using?  Mostly Perforce (perhaps 60%) with a tail of Subve
  
  
 == Day 3 (Friday) ==
-#3日目
+#3日目(金曜日)
  
  
  
 The suggested topic of day 3 (Friday) was data gathering, mining, and visualization.
-#3日目のトピックはデータ収集、マイニング、可視化について。
+#3日目(金曜日)のトピックはデータ収集、マイニング、可視化について。
  
  
 [Since it worked well Thursday, we kept the  "gather general questions, then attempt to answer them" model for Friday.]
@@ -714,12 +720,12 @@ Assertions:
 #アサートにグループによるタグ付けをする（マクロを使ったりして）、自動的に修正ができる人にレポートする。
 #アサーションの統計をとる　--　これによりバグの多いシステムを識別する事ができる。
 #できるだけ、通常のスキップ可能なアサートと致命的なアサートを切り分ける。
-#アサートを使用するチームの約10%は、稼働させる時にに無効にしない
+#アサートを使用するチームの約10%は、稼働させる時に無効にしない
 #アサートは「アルゴリズムのエラー用」に限定し、全てのデータエラーのケースは別のコードで扱う人もいる。
  
  
 Only 5-6 teams used code coverage / branch coverage analysis tools.
-#5,6チームだけがコードカバレッジ/ブランチカバレッジ解析ツールを使用
+#5,6チームだけがコードカバレッジ/分岐カバレッジ解析ツールを使用
  
  
  
@@ -729,11 +735,11 @@ Only 5-6 teams used code coverage / branch coverage analysis tools.
  
  
 Save gameplay instructions (e.g. a message stream) easily or automatically; QA can pick up these saved streams and use them in scripts for testing.  Make the sequence to start/stop recording very simple.
-#ゲームプレイ中の指示（メッセージストリーム等）を簡単にもしくは自動的に記録するようにする；QAは記録されたストリームを取り出しスクリプトから使う事ができる。シーケンスを記録のスタート/ストップが簡単にできるように作っておくべきだ。
+#ゲームプレイ中の命令セット（メッセージストリーム等）を簡単にもしくは自動的に記録するようにする；QAは記録されたストリームを取り出しスクリプトからテストとして使う事ができる。シーケンスを記録のスタート/ストップが簡単にできるように作っておくべきだ。
  
  
 Saving input or gameplay messages helps keep the game deterministic, which can have other benefits.
-#入力とゲームプレイメッセージを記録する事はゲームを一意に決定するのを助ける事ができる、他の恩恵もある。
+#入力とゲームプレイメッセージを記録する事はゲームを再現性があるようにするのを助ける。他の恩恵もある。
  
  
 Assert on any unrealistic parameters coming into the system.  This also helps with anti-cheat mechanisms.
@@ -753,7 +759,7 @@ Have your server run at unlimited frame rate (possibly with rendering disabled);
  
  
 Record test results as e.g. SQL strings.  Don't get too fancy with reporting protocols or database setup; it's not worth it.
-#テスト結果をSQL等に記録する。レポートのプロトコルやデータベースのセットアップに過剰装飾をしてはいけない；そんなに価値はない。
+#テスト結果をSQL等に文字列で記録する。レポートのプロトコルやデータベースのセットアップに過剰装飾をしてはいけない；そんなに価値はない。
  
  
 Mock some objects [selectively -- there's a lot of unhappiness with the mock object pattern, as there was on Wednesday] to help with higher level testing.
@@ -771,11 +777,11 @@ Track your time: track normal development time, track automation development and
  
  
 On a "one and done" project such as a one-time port or DLC, focus on simple high level functional testing like smoke tests.  Don't try to retrofit unit tests.
-#一度だけの移植やDLCなどの「一度作って終わり」のプロジェクトは、スモークテストのようなシンプルな上位レベルの機能テストに注目される。ユニットテストに取り組むのはやめるべき。
+#一度だけの移植やDLCなどの「一度作って終わり」のプロジェクトは、スモークテストのようなシンプルな上位レベルの機能テストに注力しよう。ユニットテストに取り組むのはやめるべき。
  
  
 Gather and report on all the failures the automated testing catches.
-#自動テストのキャッシュから全ての失敗を集めてレポートするべき。
+#自動テストの記録から全ての失敗を集めてレポートするべき。
  
  
  
@@ -789,11 +795,14 @@ Gather and report on all the failures the automated testing catches.
  
  
 * Selenium (web specific)
+* Selenium [webに特化]
 #http://seleniumhq.org/
 * Sikuli (GUI testing with screen shots)
+# Sikuli (スクリーンショットが撮れるGUIテスト)
 #http://sikuli.org/
 #http://www.moongift.jp/r/2010/01/project-sikuli/
 * .NET UI Automation framework
+# .NET UI 自動化フレームワーク
 #http://msdn.microsoft.com/ja-jp/library/ms747327.aspx
  
  
@@ -803,11 +812,11 @@ Get something "like Selenium" up and running: at least a "touch monkey" that sim
  
  
 [As in prior sessions] much disagreement about whether input recording and playback for UI testing is "evil" (too prone to false failures, too high maintenance).
-#[前のセッションで出たように]入力の記録と、UIテストのプレイバックのどちらが「邪悪」か意見が分かれた。「邪悪」：（あまりにも間違った失敗をし･･･おそらくテストのfalse報告が間違っているの意味･･･、メンテナンスコストが高い）
+#[前のセッションで出たように]入力の記録と、UIテストのプレイバックのどちらが「邪悪」（あまりにも間違った失敗をし･･･おそらくテストのfalse報告が間違っているの意味･･･、メンテナンスコストが高い）か意見が分かれた。
  
  
 Accessibility features can be a boon to automated UI traversal.
-#アクセスしやすいという特徴はUIの自動横断テストに恩恵を与える。
+#アクセスしやすい機能はUIの自動横断テストに恩恵を与える。
  
  
 Grab a "map" of the UI from the pipeline, before the build, then use that to create tests.
@@ -815,11 +824,11 @@ Grab a "map" of the UI from the pipeline, before the build, then use that to cre
  
  
 If your UI is data driven by XML, you can parse that XML for testing.
-#もしUIがXMLのデータドリブンであれば、そのXMLをテストにパースする事ができる。
+#もしUIがXMLのデータドリブンであれば、そのXMLをテスト向けパースする事ができる。
  
  
 For most games, 80% of the needed tests are on game components.  The RoI is much higher there than on UI testing.
-#ほとんどのゲームで、80%の必要とされるテストはゲームコンポーネントについてだ。それはUIテストのRoI (return on investment：投資利益率)よりももっと高くなる。
+#ほとんどのゲームで、80%の必要とされるテストはゲームコンポーネントについてだ。それらのRoI (return on investment：投資利益率)は、UIテストのものよりも高くなる。
  
  
  
@@ -841,7 +850,7 @@ We need more "QA as a profession".  We have QA -> Production and even QA -> Prog
  
  
 QA turnover is a huge problem that needs to be addressed.
-#QAによる--〔一定の期間の〕粗利益、益金？〔会社などの〕離職者数［率］、補充者数？--は取り組まれるべき巨大な問題だ。
+#QA離職率は取り組まれるべき巨大な問題だ。
  
  
 Encourage "across the wall" communication.  (Only about 50% of those in attendance do this.)  Bring a single QA person to the daily "scrum" or meeting.
@@ -853,7 +862,7 @@ Encourage diverse backgrounds for QA and test engineers.  For example: a hardwar
  
  
 Some companies solve the QA turnover problem by growing a static core QA department and expanding seasonally with temporaries.
-#QA turnover（上述）の問題に対して、独立したQA部門を成長させるのと期ごとのアルバイトを拡大する事で解決している会社もあった
+#QA離職率の問題に対して、独立したコアのQA部門を成長させるのと期ごとのアルバイトを拡大する事で解決している会社もあった
  
  
  
@@ -905,7 +914,7 @@ Automate browsers using bots.
  
  
 Keep a separate lab with dedicated hardware and environments (e.g. different OSes, browsers, etc) for testing.  Possibly use VMs.
-#テストのために、専用のハードウェアと環境毎（例えばOS毎、ブラウザ毎、など）に分けて用意する。VMを使ったり。
+#テストのために、ハードウェアと環境（例えばOS毎、ブラウザ毎、など）ごとに分けて独立した実験室を用意する。VMを使ったり。
  
  
  
