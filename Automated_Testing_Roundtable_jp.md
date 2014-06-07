@@ -519,7 +519,7 @@ Identify idle consoles (e.g. Xbox) and run a test suite opportunistically.
  
  
 Dedicated automated test hardware is common.
-#自動テスト専用のハードウェアがあるは一般的です。
+#自動テスト専用のハードウェアがあるのは一般的です。
  
  
  
